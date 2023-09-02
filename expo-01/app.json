@@ -28,6 +28,7 @@
     },
     "updates": {
       "useClassicUpdates": true
-    }
+    },
+    "privacy": "public"
   }
 }

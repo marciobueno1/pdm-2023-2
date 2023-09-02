@@ -1,27 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { FlatList, StyleSheet, View } from 'react-native';
-
-import { DATA } from './components/data';
-import { Item } from './components/Item';
-import { EmptyList } from './components/EmptyList';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Home } from './screens/Home';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={DATA}
-        renderItem={({item}) => <Item title={item.title} />}
-        keyExtractor={item => item.id}
-        ListEmptyComponent={<EmptyList />}
-      />
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <Home />
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-  },
-});
