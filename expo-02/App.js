@@ -12,9 +12,25 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ title: "Overview" }}
+          options={{
+            title: "Overview",
+            headerStyle: {
+              backgroundColor: "#000000",
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
         />
-        <Stack.Screen name="Details" component={DetailsScreen} />
+        <Stack.Screen
+          name="Details"
+          component={DetailsScreen}
+          options={({ route }) => ({
+            title: `itemId = ${route.params.itemId}`,
+            headerTintColor: "#f00",
+          })}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
