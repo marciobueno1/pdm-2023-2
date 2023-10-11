@@ -2,16 +2,14 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { Button, Image, StyleSheet, Text, View } from "react-native";
 import { diceFaces } from "../images.js";
-// import { useStore } from "../zustand";
+import { useStore } from "../zustand";
 
 const rodarDado = () => {
   return Math.floor(Math.random() * 6) + 1;
 };
 
-export function HomeScreen() {
-  // const bears = useStore((state) => state.bears);
-  // const increasePopulation = useStore((state) => state.increasePopulation);
-  // const removeAllBears = useStore((state) => state.removeAllBears);
+export function HomeScreen({ navigation }) {
+  const addScore = useStore((state) => state.addScore);
 
   const [dado1, setDado1] = useState(0);
   const [dado2, setDado2] = useState(0);
@@ -23,14 +21,11 @@ export function HomeScreen() {
   };
 
   useEffect(() => {
-    // if (dado1 + dado2 === 7 || dado1 + dado2 == 11) {
-    //   setResultado("ganhou");
-    // } else {
-    //   setResultado("perdeu");
-    // }
-    setResultado(
-      dado1 + dado2 === 7 || dado1 + dado2 == 11 ? "ganhou" : "perdeu"
-    );
+    const date = new Date();
+    const result =
+      dado1 + dado2 === 7 || dado1 + dado2 == 11 ? "ganhou" : "perdeu";
+    setResultado(result);
+    addScore({ date, result });
   }, [dado1, dado2]);
 
   return (
@@ -44,6 +39,7 @@ export function HomeScreen() {
       </View>
       <Button title="Jogar Dados" onPress={jogarDados} />
       {dado1 != 0 && dado2 != 0 && <Text style={styles.text}>{resultado}</Text>}
+      <Button title="Histórico" onPress={() => navigation.navigate("Score")} />
       <StatusBar style="auto" />
     </View>
   );
