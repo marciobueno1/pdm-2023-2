@@ -17,7 +17,7 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Score" component={ScoreScreen} />
-          <Stack.Screen name="Score" component={ServerScoreScreen} />
+          <Stack.Screen name="ServerScore" component={ServerScoreScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>

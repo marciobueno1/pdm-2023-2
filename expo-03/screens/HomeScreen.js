@@ -40,6 +40,10 @@ export function HomeScreen({ navigation }) {
       <Button title="Jogar Dados" onPress={jogarDados} />
       {dado1 != 0 && dado2 != 0 && <Text style={styles.text}>{resultado}</Text>}
       <Button title="Histórico" onPress={() => navigation.navigate("Score")} />
+      <Button
+        title="Histórico Back4App"
+        onPress={() => navigation.navigate("ServerScore")}
+      />
       <StatusBar style="auto" />
     </View>
   );
