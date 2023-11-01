@@ -9,7 +9,7 @@ export const ScoreScreen = () => {
   return (
     <SectionList
       sections={scores}
-      keyExtractor={(item) => item.date}
+      keyExtractor={(item, index) => `${index}-${item.date}`}
       renderItem={({ item }) => <Score score={item} />}
       renderSectionHeader={({ section: { title } }) => (
         <ScoreHeader title={title} />

@@ -1,8 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { Button, Image, StyleSheet, Text, View } from "react-native";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 import { diceFaces } from "../images.js";
 import { useStore } from "../zustand";
+import { addServerScore } from "../api/index.js";
 
 const rodarDado = () => {
   return Math.floor(Math.random() * 6) + 1;
@@ -10,6 +13,14 @@ const rodarDado = () => {
 
 export function HomeScreen({ navigation }) {
   const addScore = useStore((state) => state.addScore);
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: addServerScore,
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["score"] });
+    },
+  });
 
   const [dado1, setDado1] = useState(0);
   const [dado2, setDado2] = useState(0);
@@ -26,6 +37,7 @@ export function HomeScreen({ navigation }) {
       dado1 + dado2 === 7 || dado1 + dado2 == 11 ? "ganhou" : "perdeu";
     setResultado(result);
     addScore({ date, result });
+    mutation.mutate({ date, result });
   }, [dado1, dado2]);
 
   return (
